@@ -1,11 +1,18 @@
 import js from "@eslint/js";
 import globals from "globals";
 import { defineConfig } from "eslint/config";
+import pluginSecurity from "eslint-plugin-security";
+import pluginSecurityNode from "eslint-plugin-security-node";
+import pluginNoUnsanitized from "eslint-plugin-no-unsanitized";
 
 //previous config working without security
 export default defineConfig([
   { files: ["**/*.{js,mjs,cjs}"],
-     plugins: { js },
+     plugins: { js,
+      security: pluginSecurity,
+      securityNode: pluginSecurityNode,
+      noUnsanitized: pluginNoUnsanitized,
+      },
       extends: ["js/recommended"],
        languageOptions: {
       sourceType: "module", // since you're using import/export
@@ -18,11 +25,18 @@ export default defineConfig([
       ...globals.node,
       ...globals.browser 
     },
-      ecmaVersion: 12,
+      ecmaVersion: 2021,
       sourceType: "module",
    },
    rules: {
+     // ESLint core recommended
+      ...js.configs.recommended.rules,
       "security/detect-eval-with-expression": "error",
+       // Optional: add other security rules here from the plugin docs
+      "security-node/detect-disable-mustache-escape": "warn",
+      "no-unsanitized/method": "warn",
+      "no-unsanitized/property": "warn",
+
       // add other security rules you want here
   },
 },
