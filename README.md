@@ -1,4 +1,5 @@
 # ssd-lab7
+# testing to see if github action works
 
 npm install mocha chai --save-dev
 npm install selenium-webdriver
@@ -17,3 +18,5 @@ Stop node server.js process
 npx mocha tests/test.js
 
 node tests/SeleniumTest.mjs
+
+
